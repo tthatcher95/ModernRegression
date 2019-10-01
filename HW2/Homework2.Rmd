@@ -1,0 +1,113 @@
+---
+title: "Homework 2"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Felicity Escarzaga and Tyler Thatcher
+#### 09/16/2019
+
+## 1
+```{r}
+#1
+A <- matrix(c(2,3,5,4,1,5,7,8), ncol=2, nrow=4)
+B <- matrix(c(6,9,3,1), ncol=1, nrow=4)
+C <- matrix(c(3,8,5,2,8,6,1,4), ncol=2, nrow=4)
+```
+### A, B, and C Matricies
+```{r}
+A
+B
+C
+```
+### a. A + C
+```{r}
+a.1 <- A + C
+a.1
+```
+### b. A - C
+```{r}
+b.1 <- A - C
+b.1
+```
+### c. B' * A
+```{r}
+c.1 <- t(B) %*% A
+c.1
+```
+### d. A * C
+```{r}
+d.1 <- A %*% t(C)
+d.1
+```
+### e. C' * A
+```{r}
+e.1 <- t(C) %*% A
+e.1
+```
+## 2
+```{r}
+X <- matrix(c(1,1,1,1,1,1,4,1,2,3,3,4), ncol=2, nrow=6)
+Y <- matrix(c(16,5,10,15,13,22), ncol=1, nrow=6)
+```
+### X and Y Matricies
+```{r}
+X
+Y
+```
+### a. Y' * Y"
+```{r}
+a.2 <- t(Y) %*% Y
+a.2
+```
+### b. X' * Y"
+```{r}
+b.2 <- t(X) %*% Y
+b.2
+```
+### c. X' * X"
+```{r}
+c.2 <- t(X) %*% X
+c.2
+```
+### d. (X'X)^-1"
+```{r}
+d.2 <- solve(c.2)
+d.2
+```
+### e. ((X'X)^-1) * X' * Y"
+```{r}
+e.2 <- d.2 %*% t(X) %*% Y
+e.2
+```
+### f. Symmetric Matricies are: A, C, and D "
+```{r}
+isSymmetric(a.2)
+isSymmetric(b.2)
+isSymmetric(c.2)
+isSymmetric(d.2)
+isSymmetric(e.2)
+```
+### g. Summary of linear regression model
+```{r}
+g.2 <- lm(Y ~ (X - 1))
+summary(g.2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

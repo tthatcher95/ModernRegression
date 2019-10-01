@@ -1,0 +1,65 @@
+---
+title: "Homework 1"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Felicity Escarzaga and Tyler Thatcher
+#### 09/04/2019
+
+## 2
+```{r}
+#2
+curve(dnorm(x,mean=0,sd=1), from=-3, to = 3,
+    ylab="f(z)", xlab="Z", main="Normal PDF")
+```
+
+## 3
+
+```{r}
+#3
+z_cdf = 2
+pnorm(z_cdf)
+```
+## 4
+```{r}
+#4
+qnorm(0.975)
+```
+
+## 5
+```{r}
+#5
+n = 4
+plot(0:n, binprobs<- dbinom(0:n, size=n, p=0.1),
+     ylab="f(y)", xlab="y",
+     pch=20, main="binom(n=4,p=0.1)")
+
+segments(0:n,rep(0,n),0:n, binprobs)
+```
+
+## 6
+```{r}
+#6
+pbinom(0, size = n, prob = 0.1, lower.tail = FALSE)
+```
+
+## 7
+```{r}
+#7
+pbinom(0.5, size = n, prob = 0.1, lower.tail = FALSE)
+```
+
+## 8
+a) The mean of 1 + 2Y1 + 3Y2 is: $$ E(1 + 2Y_1 + 3Y_2) = 1 + 2\mu_1 + 3\mu_2 $$
+
+b) The covariance between Y1 and Y2 is: $$ Cov(Y_1, Y_2)  = 0 $$
+
+c) The variance of the above linear combination is: $$ Var(1 + 2Y_1 + 3Y_2) = 1 + 2^2 \sigma_1^2 + 3^2 \sigma_2^2 $$
+
+d) The distribution of the above linear combination is a Normal Distribution i.e. $$ N(1 + 2\mu_1 + 3\mu_2,  1 + 2^2\sigma_1^2 + 3^2 \sigma_2^2) $$

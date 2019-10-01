@@ -1,0 +1,157 @@
+---
+title: "Homework 3"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Felicity Escarzaga and Tyler Thatcher
+#### 09/25/2019
+
+## Problem 1
+### (a)
+```{r}
+data(cheddar, package="faraway")
+pairs(cheddar)
+```
+
+### (b)
+```{r}
+taste_model <- lm(cheddar$taste ~ cheddar$Acetic + cheddar$H2S + cheddar$Lactic)
+sum_taste <- summary(taste_model)
+sum_taste
+```
+### (c)
+```{r}
+cor_taste_model <- cor(fitted(taste_model), cheddar$taste)
+cor_taste_model
+```
+### (d)
+```{r}
+taste_model_2 <- lm(cheddar$taste ~ cheddar$Acetic + cheddar$H2S + cheddar$Lactic - 1)
+sum_taste <- summary(taste_model_2)
+sum_taste
+```
+The R Squared from the summary is: 0.8877
+<br />To calculate R squared, you would square the r (coefficent of determination) of the of the model.
+```{r}
+r_squared <- cor(fitted(taste_model), cheddar$taste)^2
+r_squared
+```
+
+## Problem 2
+### (a)
+```{r}
+x <- model.matrix( ~ Acetic + H2S + Lactic, cheddar)
+y <- cheddar$taste
+```
+### (b)
+```{r}
+xtxi <- solve(t(x) %*% x)
+as.vector(betahat<- xtxi %*% t(x) %*% y)
+```
+### (c)
+```{r}
+H_mat <- x %*% (solve(t(x) %*% x)) %*% t(x)
+```
+The number of parameters for the regression model is 4 parameters.
+```{r}
+sum_diag <- sum(diag(H_mat))
+sum_diag
+```
+### (d)
+```{r}
+y_hat <- H_mat %*% y
+y1 <- y_hat[1]
+y2 <- y_hat[2]
+yn <- tail(y_hat, n=1)
+
+# Results for y1, y2, and yn from the homework
+results <- c(y1, y2, yn)
+results
+```
+### (e)
+```{r}
+residuals <- y - y_hat
+# Display only the even indicies of the residuals
+even <- function(x) x%%2 == 0
+even_ind <- even(1:length(residuals))
+residuals[even_ind]
+```
+### (f)
+```{r}
+n<- length(na.omit(y))
+p<- dim(x)[2]
+sigmahat<- sum(residuals^2)/(n-p)
+sigmahat
+```
+### (g)
+```{r}
+verified_r_2 <- cor(y_hat, cheddar$taste)^2
+verified_r_2
+r_squared
+```
+### (h)
+```{r}
+varbetahat<- sigmahat * xtxi
+varbetahat
+varbetahat<- vcov(taste_model)
+varbetahat
+```
+### (i)
+```{r}
+estimated_se <- sqrt(diag(varbetahat))
+estimated_se
+```
+### (j)
+These errors are that R estimated from the regression model that includes the intercepts.
+
+### (k)
+#### (i)
+```{r}
+tstat <- (betahat - 0) / estimated_se[2]
+tstat
+```
+#### (ii)
+```{r}
+t_test <- 2*pt(q=abs(tstat), df=n-p, lower=FALSE)
+t_test[2]
+summary(taste_model)
+```
+#### (iii)
+The results from the hypothesis test, lead us to believe that we should exclude acetic from the model.
+
+#### (iv)
+```{r}
+tcrit<- qt(0.975, n-p)
+tcrit
+```
+#### (v)
+```{r}
+lower <- betahat[2] - tcrit * estimated_se[2]
+upper <- betahat[2] + tcrit * estimated_se[2]
+ci <- c(lower, upper)
+ci
+# Verify Results
+confint(taste_model)
+```
+
+## Problem 3
+The interval is gonna be roughly the same, becausethe fact that estimating B is a linear function, meaning it is similar to Least Squares.
+
+
+
+
+
+
+
+
+
+
+
+
+
